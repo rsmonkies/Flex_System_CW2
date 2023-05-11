@@ -13,6 +13,10 @@ namespace ITS_System.Models
         [Required]
         public string Description { get; set; }
 
+        [Required]
+
+        public int Capacity { get; set; }
+
 
     }
 }
