@@ -28,7 +28,7 @@ namespace ITS_System.Models
 
         public ClassStatus Status { get; set; }
 
-        public virtual Dictionary<IdentityUser, DateTime> WaitingList { get; set; }
+        public virtual List<WaitingListEntry> WaitingList { get; set; }
         public virtual List<Booking> Attendees { get; set; }
         public virtual List<Equpiment> Equpiments { get; set; }
     }

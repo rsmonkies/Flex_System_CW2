@@ -11,13 +11,140 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITS_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230504140226_init")]
-    partial class init
+    [Migration("20230511122657_mds")]
+    partial class mds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.15");
+
+            modelBuilder.Entity("ITS_System.Models.Booking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AttendeeId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ClassId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttendeeId");
+
+                    b.HasIndex("ClassId");
+
+                    b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("ITS_System.Models.ClassSchedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InstructorId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MaxNumbersOfBooking")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstructorId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Schedule");
+                });
+
+            modelBuilder.Entity("ITS_System.Models.Equpiment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ClassScheduleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassScheduleId");
+
+                    b.ToTable("Equpiments");
+                });
+
+            modelBuilder.Entity("ITS_System.Models.Room", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("ITS_System.Models.WaitingListEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ClassScheduleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassScheduleId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("WaitingListEntry");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -47,29 +174,29 @@ namespace ITS_System.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2bd0556f-530e-4984-b322-23c2d2ba4aa1",
-                            ConcurrencyStamp = "eb63387a-d63a-47d3-940b-47d612097552",
+                            Id = "f4791255-9cd5-455b-bbb1-c63d6650e768",
+                            ConcurrencyStamp = "b0031ef7-f2c0-4976-99ed-1b480249bee7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "25a95649-7acd-4649-a864-84eea24595a5",
-                            ConcurrencyStamp = "445a9db4-eadc-4a6f-bd1b-3d3236169e83",
+                            Id = "d48ce50f-56c9-4a7f-98bc-c0a5b82e477d",
+                            ConcurrencyStamp = "5855e3b4-396e-4d32-8495-0eaf417de0aa",
                             Name = "Studio_Staff",
                             NormalizedName = "STUDIO_STAFF"
                         },
                         new
                         {
-                            Id = "4ae2fd10-b2fb-46c1-ba79-99f5a99b43f5",
-                            ConcurrencyStamp = "3596ff41-339f-4fb0-8c64-a9578eb62458",
+                            Id = "63d9fbab-d21e-4d46-9fb9-811380f9041c",
+                            ConcurrencyStamp = "cbeaa6c1-25bd-42b4-9a47-7d6febd6fc3c",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "f7820a4f-488a-4070-bd0a-8d132465449e",
-                            ConcurrencyStamp = "cd29adce-3f3f-43b0-853d-2a6d61b12d92",
+                            Id = "44ca0e93-1520-4b59-8206-278ef30c680d",
+                            ConcurrencyStamp = "2341acc3-8164-476d-8b60-8547875a4f66",
                             Name = "Management_Team",
                             NormalizedName = "MANAGEMENT_TEAM"
                         });
@@ -164,17 +291,17 @@ namespace ITS_System.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d8436bf3-fcec-46b0-b6f6-50f2c763f5f2",
+                            Id = "7427af57-ea5e-4640-b571-201ee7e5b9d7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f6fc6177-4b34-4233-a91a-51c3e207776b",
+                            ConcurrencyStamp = "2fce869a-3451-4ab6-853a-257cca9d9ef5",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH7ikIhhYtReaH3pkZsV+lLqDYBvDLS3jhl64/aFcijG8qwcYFwiVZlE5oELemMSIA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKWGumYZufPJGclxgpMvZzEbgv1xHD+ld/RxaltfoC/7e2fIviLvaCRFnF1Z+1iAFw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b1e558b3-a189-4eba-b883-ff2d2290e33f",
+                            SecurityStamp = "bb59162a-590c-4ebe-af59-30ddc8d1e037",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -242,8 +369,8 @@ namespace ITS_System.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "d8436bf3-fcec-46b0-b6f6-50f2c763f5f2",
-                            RoleId = "2bd0556f-530e-4984-b322-23c2d2ba4aa1"
+                            UserId = "7427af57-ea5e-4640-b571-201ee7e5b9d7",
+                            RoleId = "f4791255-9cd5-455b-bbb1-c63d6650e768"
                         });
                 });
 
@@ -264,6 +391,66 @@ namespace ITS_System.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ITS_System.Models.Booking", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Attendee")
+                        .WithMany()
+                        .HasForeignKey("AttendeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ITS_System.Models.ClassSchedule", "Class")
+                        .WithMany("Attendees")
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attendee");
+
+                    b.Navigation("Class");
+                });
+
+            modelBuilder.Entity("ITS_System.Models.ClassSchedule", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Instructor")
+                        .WithMany()
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ITS_System.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Instructor");
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("ITS_System.Models.Equpiment", b =>
+                {
+                    b.HasOne("ITS_System.Models.ClassSchedule", null)
+                        .WithMany("Equpiments")
+                        .HasForeignKey("ClassScheduleId");
+                });
+
+            modelBuilder.Entity("ITS_System.Models.WaitingListEntry", b =>
+                {
+                    b.HasOne("ITS_System.Models.ClassSchedule", null)
+                        .WithMany("WaitingList")
+                        .HasForeignKey("ClassScheduleId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -315,6 +502,15 @@ namespace ITS_System.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ITS_System.Models.ClassSchedule", b =>
+                {
+                    b.Navigation("Attendees");
+
+                    b.Navigation("Equpiments");
+
+                    b.Navigation("WaitingList");
                 });
 #pragma warning restore 612, 618
         }
