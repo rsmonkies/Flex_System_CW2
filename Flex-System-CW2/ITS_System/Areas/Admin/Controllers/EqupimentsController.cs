@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ITS_System.Data;
 using ITS_System.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ITS_System.Areas.Admin.Views
 {
-    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class EqupimentsController : Controller
     {
         private readonly ApplicationDbContext _context;
