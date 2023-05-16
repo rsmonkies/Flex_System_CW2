@@ -62,7 +62,14 @@ namespace ITS_System.Areas.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,DateTime,InstructorId,MaxNumbersOfBooking,RoomId,Status")] ClassSchedule classSchedule)
         {
-            if (ModelState.IsValid)
+            classSchedule.Room = await _context.Rooms.FindAsync(classSchedule.RoomId);
+            classSchedule.Instructor = await _context.Users.FindAsync(classSchedule.InstructorId);
+
+            if (classSchedule.InstructorId != null && 
+                classSchedule.DateTime != null && 
+                classSchedule.RoomId != null && 
+                classSchedule.Status != null &&
+                classSchedule.MaxNumbersOfBooking > 0)
             {
                 _context.Add(classSchedule);
                 await _context.SaveChangesAsync();
