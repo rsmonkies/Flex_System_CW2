@@ -11,19 +11,25 @@ namespace ITS_System.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Class Date and Time")]
         public DateTime DateTime { get; set; }
 
         [Required]
+        [Display(Name = "Instructor")]
+        public string InstructorId { get; set; }
+
+        [ForeignKey("InstructorId")]
         public IdentityUser Instructor { get; set; }
 
         [Required]
+        [Display(Name = "Max Number of Bookings")]
         public int MaxNumbersOfBooking { get; set; }
-        
-        [Required]
+
+        [ForeignKey("RoomId")]
         public Room Room { get; set; }
 
         [Required]
-        [ForeignKey("RoomId")]
+        [Display(Name = "Room")]
         public int RoomId { get; set; }
 
         public ClassStatus Status { get; set; }

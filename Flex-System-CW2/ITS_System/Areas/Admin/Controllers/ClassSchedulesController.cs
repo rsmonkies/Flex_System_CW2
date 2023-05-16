@@ -7,12 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ITS_System.Data;
 using ITS_System.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ITS_System.Areas.Admin
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
     public class ClassSchedulesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,7 +23,7 @@ namespace ITS_System.Areas.Admin
         // GET: Admin/ClassSchedules
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Schedule.Include(c => c.Room);
+            var applicationDbContext = _context.Schedule.Include(c => c.Instructor).Include(c => c.Room);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -38,6 +36,7 @@ namespace ITS_System.Areas.Admin
             }
 
             var classSchedule = await _context.Schedule
+                .Include(c => c.Instructor)
                 .Include(c => c.Room)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (classSchedule == null)
@@ -51,6 +50,7 @@ namespace ITS_System.Areas.Admin
         // GET: Admin/ClassSchedules/Create
         public IActionResult Create()
         {
+            ViewData["InstructorId"] = new SelectList(_context.Users, "Id", "Email");
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description");
             return View();
         }
@@ -60,7 +60,7 @@ namespace ITS_System.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DateTime,MaxNumbersOfBooking,RoomId,Status")] ClassSchedule classSchedule)
+        public async Task<IActionResult> Create([Bind("Id,DateTime,InstructorId,MaxNumbersOfBooking,RoomId,Status")] ClassSchedule classSchedule)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +68,7 @@ namespace ITS_System.Areas.Admin
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["InstructorId"] = new SelectList(_context.Users, "Id", "Email", classSchedule.InstructorId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", classSchedule.RoomId);
             return View(classSchedule);
         }
@@ -85,6 +86,7 @@ namespace ITS_System.Areas.Admin
             {
                 return NotFound();
             }
+            ViewData["InstructorId"] = new SelectList(_context.Users, "Id", "Email", classSchedule.InstructorId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", classSchedule.RoomId);
             return View(classSchedule);
         }
@@ -94,7 +96,7 @@ namespace ITS_System.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DateTime,MaxNumbersOfBooking,RoomId,Status")] ClassSchedule classSchedule)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DateTime,InstructorId,MaxNumbersOfBooking,RoomId,Status")] ClassSchedule classSchedule)
         {
             if (id != classSchedule.Id)
             {
@@ -121,6 +123,7 @@ namespace ITS_System.Areas.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["InstructorId"] = new SelectList(_context.Users, "Id", "Email", classSchedule.InstructorId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", classSchedule.RoomId);
             return View(classSchedule);
         }
@@ -134,6 +137,7 @@ namespace ITS_System.Areas.Admin
             }
 
             var classSchedule = await _context.Schedule
+                .Include(c => c.Instructor)
                 .Include(c => c.Room)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (classSchedule == null)
