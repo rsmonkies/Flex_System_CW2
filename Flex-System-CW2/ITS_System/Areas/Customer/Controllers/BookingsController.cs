@@ -20,6 +20,8 @@ namespace ITS_System.Areas.Customer.Views
             _context = context;
         }
 
+       
+
         // GET: Customer/Bookings
         public async Task<IActionResult> Index()
         {
@@ -49,8 +51,24 @@ namespace ITS_System.Areas.Customer.Views
         // GET: Customer/Bookings/Create
         public IActionResult Create()
         {
-            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName");
-            return View();
+            ViewData["ClassName"] = new SelectList(_context.Schedule, "Id", "ClassName");
+            ViewData["DateTime"] = new SelectList(_context.Schedule, "Id", "DateTime");
+            ViewData["Status"] = new SelectList(_context.Schedule, "Id", "Status");
+            var classes = _context.Schedule.ToList();
+            return View(classes);
+        }
+
+        public async Task<IActionResult> Create(string search)
+        {
+            var classSchedules = from c in _context.Schedule
+                                 select c;
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                classSchedules = classSchedules.Where(s => s.Instructor.Email.Contains(search) || s.ClassName.ToLower().Contains(search.ToLower()));
+            }
+
+            return View(await classSchedules.Include("Instructor").Include("Room").OrderBy(s => s.ClassName).ToListAsync());
         }
 
         // POST: Customer/Bookings/Create
@@ -58,7 +76,7 @@ namespace ITS_System.Areas.Customer.Views
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClassName,Id,ClassId,TimeStamp,Status")] Booking booking)
+      /*  public async Task<IActionResult> Create([Bind("ClassName,Id,ClassId,TimeStamp,Status")] Booking booking)
         {
             if (ModelState.IsValid)
             {
@@ -66,10 +84,12 @@ namespace ITS_System.Areas.Customer.Views
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
+            ViewData["ClassName"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
+            ViewData["DateTime"] = new SelectList(_context.Schedule, "Id", "DateTime", booking.ClassId);
+            ViewData["Status"] = new SelectList(_context.Schedule, "Id", "Status", booking.ClassId);
 
             return View(booking);
-        }
+        }*/
 
         // GET: Customer/Bookings/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -84,8 +104,10 @@ namespace ITS_System.Areas.Customer.Views
             {
                 return NotFound();
             }
-            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
-  
+            ViewData["ClassName"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
+            ViewData["DateTime"] = new SelectList(_context.Schedule, "Id", "DateTime", booking.ClassId);
+            ViewData["Status"] = new SelectList(_context.Schedule, "Id", "Status", booking.ClassId);
+
             return View(booking);
         }
 
@@ -121,7 +143,9 @@ namespace ITS_System.Areas.Customer.Views
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
+            ViewData["ClassName"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
+            ViewData["DateTime"] = new SelectList(_context.Schedule, "Id", "DateTime", booking.ClassId);
+            ViewData["Status"] = new SelectList(_context.Schedule, "Id", "Status", booking.ClassId);
 
             return View(booking);
         }
