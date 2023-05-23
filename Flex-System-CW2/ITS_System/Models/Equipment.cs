@@ -2,7 +2,7 @@
 
 namespace ITS_System.Models
 {
-    public class Equpiment
+    public class Equipment
     {
         [Key]
         public int Id { get; set; }

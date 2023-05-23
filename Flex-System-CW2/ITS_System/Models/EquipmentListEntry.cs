@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ITS_System.Models
 {
-    public class EquiptmentListEntry
+    public class EquipmentListEntry
     {
         [Key]
 
@@ -11,7 +11,7 @@ namespace ITS_System.Models
 
         [Required]
 
-        public Equpiment Equiptment { get; set; }
+        public Equipment Equipment { get; set; }
 
         [Required]
 

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITS_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230523100940_initinit")]
-    partial class initinit
+    [Migration("20230523105037_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,10 @@ namespace ITS_System.Migrations
 
                     b.Property<int>("ClassId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClassName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
@@ -52,6 +56,10 @@ namespace ITS_System.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClassName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("TEXT");
@@ -196,29 +204,29 @@ namespace ITS_System.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e233b554-2bff-4ded-96c2-f889e1b06ab6",
-                            ConcurrencyStamp = "2dea7abb-3dc8-4a46-b90a-13184562175b",
+                            Id = "3a8a5422-5ada-463a-b944-f24dc60acd2e",
+                            ConcurrencyStamp = "ec81e634-caaf-4909-8068-ecfb0332e247",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ffa0dacd-c85f-4408-af7e-a731aaaa474d",
-                            ConcurrencyStamp = "1e4ea0c2-262c-4a78-926d-520a67eb65af",
+                            Id = "5154b819-d157-496b-95da-cc5371deb055",
+                            ConcurrencyStamp = "6d94a3a6-34ba-4e3e-b48d-417d447d28a0",
                             Name = "Studio_Staff",
                             NormalizedName = "STUDIO_STAFF"
                         },
                         new
                         {
-                            Id = "0b2fe996-e27c-4d23-bb30-0520511208bf",
-                            ConcurrencyStamp = "9ec8bd45-ea7d-4050-a3ce-dfbb5693bc2f",
+                            Id = "abc602e1-8f03-45a0-8936-babfb468056c",
+                            ConcurrencyStamp = "58de6e18-ede3-4f51-a155-bb4c9849c7ca",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "9d21c025-0e07-4871-932e-31cd14559389",
-                            ConcurrencyStamp = "525d6006-7dfc-498d-bdb1-2d896213e07a",
+                            Id = "1c53295d-c710-4a9a-8c3a-50944c327f18",
+                            ConcurrencyStamp = "279f83e6-aee2-43c5-9dbc-eae1f6c04aa5",
                             Name = "Management_Team",
                             NormalizedName = "MANAGEMENT_TEAM"
                         });
@@ -313,17 +321,17 @@ namespace ITS_System.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "66bea231-265f-4ccd-b418-becff85fe2c6",
+                            Id = "c5a5391f-e411-4f54-a174-15d88197045f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f01b099d-04ce-485e-821c-5e00097412a8",
+                            ConcurrencyStamp = "5c60448a-926f-4fd1-acf6-21800572292d",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO9Y4PjIxNQjI+FIyDSy/nyvLfCiXPPVqr29A6LcMx052zH9I74EfmqteJ+xm1bA0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMChDbh/NOXGoWrZLKc+ZjxdzDYXoJOnRBeB0KmIr9fzeN/H47qwIey88QUDqWxDWw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "28956696-a3e9-4663-84ee-e1290554c067",
+                            SecurityStamp = "1a800fb8-68d6-4c5a-89f5-011d2988bec3",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -391,8 +399,8 @@ namespace ITS_System.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "66bea231-265f-4ccd-b418-becff85fe2c6",
-                            RoleId = "e233b554-2bff-4ded-96c2-f889e1b06ab6"
+                            UserId = "c5a5391f-e411-4f54-a174-15d88197045f",
+                            RoleId = "3a8a5422-5ada-463a-b944-f24dc60acd2e"
                         });
                 });
 

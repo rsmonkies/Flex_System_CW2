@@ -50,6 +50,7 @@ namespace ITS_System.Areas.Customer.Views
         public IActionResult Create()
         {
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId");
+            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName");
             return View();
         }
 
@@ -67,6 +68,7 @@ namespace ITS_System.Areas.Customer.Views
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId", booking.ClassId);
+            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
             return View(booking);
         }
 
@@ -84,6 +86,7 @@ namespace ITS_System.Areas.Customer.Views
                 return NotFound();
             }
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId", booking.ClassId);
+            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
             return View(booking);
         }
 
@@ -92,7 +95,7 @@ namespace ITS_System.Areas.Customer.Views
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ClassId,TimeStamp,Status")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("ClassName,Id,ClassId,TimeStamp,Status")] Booking booking)
         {
             if (id != booking.Id)
             {
@@ -120,6 +123,7 @@ namespace ITS_System.Areas.Customer.Views
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId", booking.ClassId);
+            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
             return View(booking);
         }
 

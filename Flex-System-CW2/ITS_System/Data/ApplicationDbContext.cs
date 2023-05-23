@@ -11,7 +11,7 @@ namespace ITS_System.Data
         string AdminId = Guid.NewGuid().ToString();
 
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Equpiment> Equpiments { get; set; }
+        public DbSet<Equipment> Equpiments { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<ClassSchedule> Schedule { get; set; }
 

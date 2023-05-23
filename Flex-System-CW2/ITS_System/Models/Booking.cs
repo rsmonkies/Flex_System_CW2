@@ -17,6 +17,9 @@ namespace ITS_System.Models
         public int ClassId { get; set; }
 
         [Required]
+        public string ClassName { get; set; }
+
+        [Required]
         public IdentityUser Attendee { get; set; }
 
         [Required]

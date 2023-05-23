@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static ITS_System.Models.Enums;
+using ITS_System.Models;
 
 namespace ITS_System.Models
 {
@@ -40,6 +41,6 @@ namespace ITS_System.Models
 
         public virtual List<WaitingListEntry> WaitingList { get; set; }
         public virtual List<Booking> Attendees { get; set; }
-        public virtual List<EquiptmentListEntry> Equpiments { get; set; }
+        public virtual List<EquipmentListEntry> EquipmentList { get; set; }
     }
 }
