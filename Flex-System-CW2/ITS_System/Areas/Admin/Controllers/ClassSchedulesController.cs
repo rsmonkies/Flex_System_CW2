@@ -7,21 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ITS_System.Data;
 using ITS_System.Models;
-using ITS_System.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using Microsoft.AspNetCore.Identity;
 
-namespace FlexAppealFitness.Areas.Admin
+namespace ITS_System.Areas.Admin
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class ClassScheduleController : Controller
+    public class ClassSchedulesController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public ClassScheduleController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public ClassSchedulesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -50,16 +49,16 @@ namespace FlexAppealFitness.Areas.Admin
                 return NotFound();
             }
 
-            var classSchedule = await _context.Schedule
+            var ClassSchedules = await _context.Schedule
                 .Include(c => c.Instructor)
                 .Include(c => c.Room)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (classSchedule == null)
+            if (ClassSchedules == null)
             {
                 return NotFound();
             }
 
-            return View(classSchedule);
+            return View(ClassSchedules);
         }
 
         // GET: Admin/ClassSchedule/Create

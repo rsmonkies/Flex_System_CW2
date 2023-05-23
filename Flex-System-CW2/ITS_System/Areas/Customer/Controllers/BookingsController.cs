@@ -49,7 +49,6 @@ namespace ITS_System.Areas.Customer.Views
         // GET: Customer/Bookings/Create
         public IActionResult Create()
         {
-            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId");
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName");
             return View();
         }
@@ -67,8 +66,8 @@ namespace ITS_System.Areas.Customer.Views
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId", booking.ClassId);
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
+
             return View(booking);
         }
 
@@ -85,8 +84,8 @@ namespace ITS_System.Areas.Customer.Views
             {
                 return NotFound();
             }
-            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId", booking.ClassId);
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
+  
             return View(booking);
         }
 
@@ -122,8 +121,8 @@ namespace ITS_System.Areas.Customer.Views
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId", booking.ClassId);
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "ClassName", booking.ClassId);
+
             return View(booking);
         }
 
