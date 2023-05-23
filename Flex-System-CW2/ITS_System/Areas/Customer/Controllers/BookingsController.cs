@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using ITS_System.Data;
 using ITS_System.Models;
 
-namespace ITS_System.Views
+namespace ITS_System.Areas.Customer.Views
 {
+    [Area("Customer")]
     public class BookingsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,14 +20,14 @@ namespace ITS_System.Views
             _context = context;
         }
 
-        // GET: Bookings
+        // GET: Customer/Bookings
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Bookings.Include(b => b.Class);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Bookings/Details/5
+        // GET: Customer/Bookings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Bookings == null)
@@ -45,19 +46,19 @@ namespace ITS_System.Views
             return View(booking);
         }
 
-        // GET: Bookings/Create
+        // GET: Customer/Bookings/Create
         public IActionResult Create()
         {
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId");
             return View();
         }
 
-        // POST: Bookings/Create
+        // POST: Customer/Bookings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ClassId,TimeStamp,Status")] Booking booking)
+        public async Task<IActionResult> Create([Bind("ClassName,Id,ClassId,TimeStamp,Status")] Booking booking)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +70,7 @@ namespace ITS_System.Views
             return View(booking);
         }
 
-        // GET: Bookings/Edit/5
+        // GET: Customer/Bookings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Bookings == null)
@@ -86,7 +87,7 @@ namespace ITS_System.Views
             return View(booking);
         }
 
-        // POST: Bookings/Edit/5
+        // POST: Customer/Bookings/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -122,7 +123,7 @@ namespace ITS_System.Views
             return View(booking);
         }
 
-        // GET: Bookings/Delete/5
+        // GET: Customer/Bookings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Bookings == null)
@@ -141,7 +142,7 @@ namespace ITS_System.Views
             return View(booking);
         }
 
-        // POST: Bookings/Delete/5
+        // POST: Customer/Bookings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

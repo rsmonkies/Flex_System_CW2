@@ -60,7 +60,7 @@ namespace ITS_System.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DateTime,InstructorId,MaxNumbersOfBooking,RoomId,Status")] ClassSchedule classSchedule)
+        public async Task<IActionResult> Create([Bind("CLassName,Id,DateTime,InstructorId,MaxNumbersOfBooking,RoomId,Status")] ClassSchedule classSchedule)
         {
             classSchedule.Room = await _context.Rooms.FindAsync(classSchedule.RoomId);
             classSchedule.Instructor = await _context.Users.FindAsync(classSchedule.InstructorId);
@@ -69,6 +69,7 @@ namespace ITS_System.Areas.Admin
                 classSchedule.DateTime != null && 
                 classSchedule.RoomId != null && 
                 classSchedule.Status != null &&
+                classSchedule.ClassName != null &&
                 classSchedule.MaxNumbersOfBooking > 0)
             {
                 _context.Add(classSchedule);
@@ -103,7 +104,7 @@ namespace ITS_System.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DateTime,InstructorId,MaxNumbersOfBooking,RoomId,Status")] ClassSchedule classSchedule)
+        public async Task<IActionResult> Edit(int id, [Bind("CLassName,Id,DateTime,InstructorId,MaxNumbersOfBooking,RoomId,Status")] ClassSchedule classSchedule)
         {
             if (id != classSchedule.Id)
             {
