@@ -23,11 +23,7 @@ namespace ITS_System.Areas.Customer.Views
        
 
         // GET: Customer/Bookings
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Bookings.Include(b => b.Class);
-            return View(await applicationDbContext.ToListAsync());
-        }
+      
 
         // GET: Customer/Bookings/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -49,16 +45,7 @@ namespace ITS_System.Areas.Customer.Views
         }
 
         // GET: Customer/Bookings/Create
-        public IActionResult Create()
-        {
-            ViewData["ClassName"] = new SelectList(_context.Schedule, "Id", "ClassName");
-            ViewData["DateTime"] = new SelectList(_context.Schedule, "Id", "DateTime");
-            ViewData["Status"] = new SelectList(_context.Schedule, "Id", "Status");
-            var classes = _context.Schedule.ToList();
-            return View(classes);
-        }
-
-        public async Task<IActionResult> Create(string search)
+        public async  Task<IActionResult> Index(string search)
         {
             var classSchedules = from c in _context.Schedule
                                  select c;
@@ -70,6 +57,19 @@ namespace ITS_System.Areas.Customer.Views
 
             return View(await classSchedules.Include("Instructor").Include("Room").OrderBy(s => s.ClassName).ToListAsync());
         }
+
+     /*   public async Task<IActionResult> Create(string search)
+        {
+            var classSchedules = from c in _context.Schedule
+                                 select c;
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                classSchedules = classSchedules.Where(s => s.Instructor.Email.Contains(search) || s.ClassName.ToLower().Contains(search.ToLower()));
+            }
+
+            return View(await classSchedules.Include("Instructor").Include("Room").OrderBy(s => s.ClassName).ToListAsync());
+        }*/
 
         // POST: Customer/Bookings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
