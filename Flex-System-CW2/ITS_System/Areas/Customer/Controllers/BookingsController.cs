@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ITS_System.Data;
 using ITS_System.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ITS_System.Areas.Customer.Views
 {
@@ -14,6 +15,7 @@ namespace ITS_System.Areas.Customer.Views
     public class BookingsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public BookingsController(ApplicationDbContext context)
         {
@@ -36,20 +38,34 @@ namespace ITS_System.Areas.Customer.Views
            
         }
 
-        public async Task<IActionResult> Create(int Id)
+        public async Task<IActionResult> Booking(int Id)
         {
-            var chosenClass = await _context.Schedule.FindAsync(Id);
-            var booking = new Booking()
+           var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+           if(currentUser == null)
             {
-                ClassId = chosenClass.Id,
+                return NotFound();
+            }
+           
+           Booking book = new Booking();
+            book.ClassId = Id;
+            book.AttendeeId = currentUser.Id;
+            book.TimeStamp = DateTime.Now;
+            book.Status = Enums.BookingStatus.Active;
+            book.Attendee = currentUser;
+            
+            var currentClass = await _context.Schedule.FindAsync(Id);
 
-                TimeStamp = chosenClass.DateTime,
+            if(currentClass == null)
+            {
+                return NotFound();
+            }
+            book.Class = currentClass;
+            currentClass.Attendees.Add(book);
+            _context.Schedule.Update(currentClass);
+            await _context.SaveChangesAsync();
 
-               Status = (Enums.BookingStatus)chosenClass.Status
 
-            };
-
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
 

@@ -68,8 +68,18 @@ namespace ITS_System.Data
                 }
             );
 
+            builder.Entity<IdentityRole>().HasData(
+               new IdentityRole()
+               {
+                   Id = Guid.NewGuid().ToString(),
+                   Name = "Instructor",
+                   NormalizedName = "Customer".ToUpper(),
+                   ConcurrencyStamp = Guid.NewGuid().ToString()
 
-             builder.Entity<IdentityRole>().HasData(
+               }
+           );
+
+            builder.Entity<IdentityRole>().HasData(
                  new IdentityRole()
                  {
                      Id = Guid.NewGuid().ToString(),
@@ -94,6 +104,22 @@ namespace ITS_System.Data
             user.LockoutEnabled = false;
             user.ConcurrencyStamp = Guid.NewGuid().ToString();
             user.PasswordHash = hasher.HashPassword(user, "Admin123!");
+            builder.Entity<IdentityUser>().HasData(user);
+
+        }
+
+        private void SeedCustomer(ModelBuilder builder)
+        {
+            PasswordHasher<IdentityUser> hasher = new PasswordHasher<IdentityUser>();
+            IdentityUser user = new IdentityUser();
+            user.Id = AdminId;
+            user.UserName = "Customer";
+            user.NormalizedUserName = "customer@customer.com".ToUpper();
+            user.NormalizedEmail = "customer@customer.com".ToUpper();
+            user.Email = "customer@customer.com";
+            user.LockoutEnabled = false;
+            user.ConcurrencyStamp = Guid.NewGuid().ToString();
+            user.PasswordHash = hasher.HashPassword(user, "Customer123!");
             builder.Entity<IdentityUser>().HasData(user);
 
         }

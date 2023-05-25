@@ -16,12 +16,13 @@ namespace ITS_System.Models
         [Required]
         public int ClassId { get; set; }
 
-
-        [ForeignKey("AtendeeId")]
-        public IdentityUser Attendee { get; set; }
         
+        [ForeignKey("AttendeeId")]
+        public IdentityUser Attendee { get; set; }
+
         [Required]
-        public int AtendeeId { get; set; }
+        public string AttendeeId { get; set; }
+
 
         [Required]
         public DateTime TimeStamp { get; set; }

@@ -30,6 +30,8 @@ namespace ITS_System.Models
         [Display(Name = "Max Number of Bookings")]
         public int MaxNumbersOfBooking { get; set; }
 
+        public int AvailableSpaces { get; set; }
+
         [ForeignKey("RoomId")]
         public Room Room { get; set; }
 
