@@ -32,7 +32,7 @@
                     <strong>Status:</strong> @Html.DisplayFor(modelItem => item.Status)
                 </p>
                 <div class="d-flex justify-content-between">
-                    <a class="btn btn-primary w-100" asp-action="Edit" asp-route-id="@item.Id">Book</a>
+                    <a class="btn btn-primary w-100" value="Create" asp-action="Create" asp-route-id="@item.Id">Book</a>
                 </div>
             </div>
         </div>
