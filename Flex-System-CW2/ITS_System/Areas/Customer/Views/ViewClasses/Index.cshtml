@@ -3,22 +3,36 @@
 @{
     ViewData["Title"] = "View Classes";
 }
+<div class="row">
+    <div class="col-12">
+        <section>
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col col-xl-10">
+                        <div class="card" style="border-radius: 1rem;">
 
-<div class="d-flex flex-wrap justify-content-between">
-    @foreach (var item in Model)
-    {
-        <div class="card mb-4 col4">
-            <div class="card-body">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.DateTime)</h5>
-                <p class="card-text">
-                    <strong>Name:</strong> @Html.DisplayFor(modelItem => item.ClassName) <br />
-                    <strong>Instructor:</strong> @Html.DisplayFor(modelItem => item.Instructor.Email) <br />
-                    <strong>Max Booking:</strong> @Html.DisplayFor(modelItem => item.MaxNumbersOfBooking) <br />
-                    <strong>Room:</strong> @Html.DisplayFor(modelItem => item.Room.Name) <br />
-                    <strong>Status:</strong> @Html.DisplayFor(modelItem => item.Status)
-                </p>
+                                <div class="d-flex flex-wrap justify-content-between mt-3">
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="card mb-4 col4">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.DateTime)</h5>
+                                                <p class="card-text">
+                                                    <strong>Name:</strong> @Html.DisplayFor(modelItem => item.ClassName) <br />
+                                                    <strong>Instructor:</strong> @Html.DisplayFor(modelItem => item.Instructor.Email) <br />
+                                                    <strong>Max Booking:</strong> @Html.DisplayFor(modelItem => item.MaxNumbersOfBooking) <br />
+                                                    <strong>Room:</strong> @Html.DisplayFor(modelItem => item.Room.Name) <br />
+                                                    <strong>Status:</strong> @Html.DisplayFor(modelItem => item.Status)
+                                                </p>
+                                            </div>
+                                        </div>
+                                        }
+                                </div>
+                           </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        }
+   
+    </section>
+    </div>
 </div>
- 

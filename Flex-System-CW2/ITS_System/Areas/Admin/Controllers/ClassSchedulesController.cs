@@ -66,8 +66,8 @@ namespace ITS_System.Areas.Admin
         {
             ViewData["InstructorId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Instructor"), "Id", "Email");
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description");
-            ViewData["EquipmentList"] = new SelectList(_context.Equpiments, "Id", "Name");
-            ViewData["ClassName"] = new SelectList(_context.Equpiments, "Id", "ClassName");
+            ViewData["EquipmentList"] = new SelectList(_context.Equipments, "Id", "Name");
+            ViewData["ClassName"] = new SelectList(_context.Equipments, "Id", "ClassName");
             return View();
         }
 
@@ -93,7 +93,7 @@ namespace ITS_System.Areas.Admin
                 {
                     var equipmentListEntry = new EquipmentListEntry
                     {
-                        Equipment = _context.Equpiments.Find(equipmentId),
+                        Equipment = _context.Equipments.Find(equipmentId),
                         AddedOn = DateTime.Now
                     };
 
@@ -107,8 +107,8 @@ namespace ITS_System.Areas.Admin
             }
             ViewData["InstructorId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Instructor"), "Id", "Email", classSchedule.InstructorId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", classSchedule.RoomId);
-            ViewData["EquipmentList"] = new SelectList(_context.Equpiments, "Id", "Name");
-            ViewData["ClassName"] = new SelectList(_context.Equpiments, "Id", "ClassName");
+            ViewData["EquipmentList"] = new SelectList(_context.Equipments, "Id", "Name");
+            ViewData["ClassName"] = new SelectList(_context.Equipments, "Id", "ClassName");
             return View(classSchedule);
         }
 
@@ -140,7 +140,7 @@ namespace ITS_System.Areas.Admin
 
 
             // Get all equipments and users for selection
-            ViewData["EquipmentList"] = new SelectList(_context.Equpiments, "Id", "Description");
+            ViewData["EquipmentList"] = new SelectList(_context.Equipments, "Id", "Description");
             ViewData["WaitingList"] = new SelectList(_context.Users, "Id", "Email");
 
             // Mark the currently selected items
@@ -190,7 +190,7 @@ namespace ITS_System.Areas.Admin
                 existingClassSchedule.EquipmentList.Clear();
                 foreach (var equipmentId in EquipmentList)
                 {
-                    var equipment = await _context.Equpiments.FindAsync(int.Parse(equipmentId));
+                    var equipment = await _context.Equipments.FindAsync(int.Parse(equipmentId));
                     if (equipment != null)
                     {
                         existingClassSchedule.EquipmentList.Add(new EquipmentListEntry { Equipment = equipment, AddedOn = DateTime.Now });
