@@ -54,11 +54,17 @@ namespace ITS_System.Areas.Customer.Views
             book.Status = Enums.BookingStatus.Active;
             book.Attendee = currentUser;
             
-            var currentClass = await _context.Schedule.FindAsync(Id);
+            var currentClass = await _context.Schedule.Include(s => s.Attendees).Where(s => s.Id == Id).FirstOrDefaultAsync();
 
             if(currentClass == null)
             {
                 return NotFound();
+            }
+
+            bool doublebook = currentClass.Attendees.Any(a => a.AttendeeId == currentUser.Id);
+            if (doublebook)
+            {
+                return RedirectToAction("Index", "Booking");
             }
             book.Class = currentClass;
             currentClass.Attendees.Add(book);
@@ -66,7 +72,7 @@ namespace ITS_System.Areas.Customer.Views
             await _context.SaveChangesAsync();
 
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Booking");
         }
 
 
@@ -76,6 +82,12 @@ namespace ITS_System.Areas.Customer.Views
                 return View(applicationDbContext);
             }
         }
-    }
+
+   
+
+
+   
+}
+    
 
 

@@ -10,7 +10,7 @@
     @if(await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin")) //HERE
     {
        <li class="nav-item">
-            <a class="nav-link text-light btn-primary btn" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Portal</a>
+            <a class="nav-link text-light btn-primary btn mx-2" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Portal</a>
        </li>
     }
 
@@ -18,7 +18,7 @@
     @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Customer")) //HERE
     {
         <li class="nav-item">
-            <a class="nav-link text-light btn-primary btn" asp-area="Customer" asp-controller="Home" asp-action="Index">Customer Portal</a>
+            <a class="nav-link text-light btn-primary btn mx-2" asp-area="Customer" asp-controller="Home" asp-action="Index">Customer Portal</a>
         </li>
     }
 

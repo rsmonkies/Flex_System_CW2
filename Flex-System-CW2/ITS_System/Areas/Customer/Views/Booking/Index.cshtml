@@ -4,12 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Booked Classes</h1>
+<a asp-action="Index" class="w-100 btn btn-primary">Back</a>
+<div class="row">
+    <div class="col-12">
+        <section>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
 
-<div class="d-flex flex-wrap justify-content-between container-fluid">
+<div class="d-flex flex-wrap justify-content-between container-fluid mt-5 ">
     @foreach (var item in Model)
     {
-        <div class="card mb-4 col-3">
+        <div class="card mb-4 col-4 mx-auto">
             <div class="card-body">
                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.TimeStamp)</h5>
                 <p class="card-text">
@@ -19,13 +27,21 @@
          
                 </p>
                 <div class="d-flex justify-content-between">
-                     <td>
+                <td>
                 <a asp-action="Delete" asp-route-id="@item.Id" class="w-100 btn-danger btn">Delete</a>
             </td>
                 </div>
             </div>
         </div>
     }
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
 
            
      

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ITS_System.Data;
 using ITS_System.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ITS_System.Areas.Customer
 {
@@ -14,16 +15,21 @@ namespace ITS_System.Areas.Customer
     public class BookingController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public BookingController(ApplicationDbContext context)
+        public BookingController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Customer/Booking
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Bookings.Include(b => b.Attendee).Include(b => b.Class);
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (currentUser == null) { return NotFound(); }
+            var applicationDbContext = _context.Bookings.Include(b => b.Attendee).Include(b => b.Class).Where(b => b.AttendeeId == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
