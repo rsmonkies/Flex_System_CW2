@@ -41,8 +41,8 @@ namespace ITS_System.Models
 
         public ClassStatus Status { get; set; }
 
-        public virtual List<WaitingListEntry> WaitingList { get; set; }
-        public virtual List<Booking> Attendees { get; set; }
-        public virtual List<EquipmentListEntry> EquipmentList { get; set; }
+        public virtual List<WaitingListEntry> WaitingList { get; set; } = new List<WaitingListEntry>();
+        public virtual List<Booking> Attendees { get; set; } = new List<Booking>();
+        public virtual List<EquipmentListEntry> EquipmentList { get; set; } = new List<EquipmentListEntry>();
     }
 }

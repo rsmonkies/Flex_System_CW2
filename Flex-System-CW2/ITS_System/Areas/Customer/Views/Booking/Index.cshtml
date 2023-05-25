@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ITS_System.Models.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="d-flex flex-wrap justify-content-between container-fluid">
+    @foreach (var item in Model)
+    {
+        <div class="card mb-4 col-3">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.TimeStamp)</h5>
+                <p class="card-text">
+                    <strong>Name:</strong> @Html.DisplayFor(modelItem => item.Attendee.Email) <br />
+                    <strong>Class Name:</strong> @Html.DisplayFor(modelItem => item.Class.ClassName) <br />
+                    <strong>Booking Status:</strong> @Html.DisplayFor(modelItem => item.Status) <br />
+         
+                </p>
+                <div class="d-flex justify-content-between">
+                     <td>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="w-100 btn-danger btn">Delete</a>
+            </td>
+                </div>
+            </div>
+        </div>
+    }
+
+           
+     
