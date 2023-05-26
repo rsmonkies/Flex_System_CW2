@@ -8,24 +8,42 @@
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row justify-content-centre align-items-centre">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating mt-3">
-                <input asp-for="Username" class="form-control" disabled />
-                <label asp-for="Username" class="form-label"></label>
+    <div class="col col-lg-6 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+            <div class="row g-0">
+                <div class="col-md-4 gradient-custom text-center text-white"
+                     style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                    <img src="~/images/icons8-person-90.png"
+                         alt="Avatar" class="img-fluid my-5 pt-lg-5" style="width: 80px;" />
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body p-4">
+                        <h6>Information</h6>
+                        <hr class="mt-0 mb-4">
+                        <div class="row pt-1">
+                            <form id="profile-form" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="col-6 mb-3">
+                                    <h6>Email</h6>
+                                    <span>@Model.Username</span>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <h6>Phone</h6>
+                                    <div class="form-floating mt-3">
+                                        <input asp-for="Input.PhoneNumber" class="form-control" />
+                                        <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                                        <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary mt-3">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-floating mt-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary mt-3">Save</button>
-        </form>
+        </div>
     </div>
 </div>
-
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
