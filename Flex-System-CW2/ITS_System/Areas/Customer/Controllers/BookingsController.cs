@@ -30,6 +30,7 @@ namespace ITS_System.Areas.Customer.Views
 
             if (!String.IsNullOrEmpty(search))
             {
+                //Using the search bar in the index for this controller, this allows the user to search for class by intructors email or the class name. This is also not case sensitive.
                 classSchedules = classSchedules.Where(s => s.Instructor.Email.Contains(search) || s.ClassName.ToLower().Contains(search.ToLower()));
             }
 
@@ -41,6 +42,7 @@ namespace ITS_System.Areas.Customer.Views
 
         public async Task<IActionResult> Booking(int Id)
         {
+            //Grabs the users name/username
            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
            if(currentUser == null)
             {
@@ -60,15 +62,15 @@ namespace ITS_System.Areas.Customer.Views
             {
                 return NotFound();
             }
-
+            //This bool ensures that is the current user already has an attendee id for this class then they can not double book it 
             bool doublebook = currentClass.Attendees.Any(a => a.AttendeeId == currentUser.Id);
             if (doublebook)
             {
                 return RedirectToAction("Index", "Booking");
             }
             book.Class = currentClass;
-            currentClass.Attendees.Add(book);
-            _context.Schedule.Update(currentClass);
+            currentClass.Attendees.Add(book); //Adds class to book
+            _context.Schedule.Update(currentClass);//Updates the current class
             await _context.SaveChangesAsync();
 
 
@@ -78,6 +80,7 @@ namespace ITS_System.Areas.Customer.Views
 
             public IActionResult ViewBookings()
             {
+                //Grabs items from the database and creates a list of context for viewing
                 var applicationDbContext = _context.Schedule.ToList();
                 return View(applicationDbContext);
             }

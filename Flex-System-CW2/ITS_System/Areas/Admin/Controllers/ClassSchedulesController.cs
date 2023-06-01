@@ -32,7 +32,7 @@ namespace ITS_System.Areas.Admin
         {
             var classSchedules = from c in _context.Schedule
                                  select c;
-
+            //Allows searchign through classes by Email and the Date or Time
             if (!String.IsNullOrEmpty(searchString))
             {
                 classSchedules = classSchedules.Where(s => s.Instructor.Email.Contains(searchString) || s.DateTime.ToString().Contains(searchString));
@@ -64,6 +64,7 @@ namespace ITS_System.Areas.Admin
         // GET: Admin/ClassSchedule/Create
         public async Task<IActionResult> Create()
         {
+            //The user can pick form a selection from this data if availabale so the user can create a class schedule
             ViewData["InstructorId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Instructor"), "Id", "Email");
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description");
             ViewData["EquipmentList"] = new SelectList(_context.Equipments, "Id", "Name");
@@ -89,6 +90,7 @@ namespace ITS_System.Areas.Admin
                 _context.Schedule.Add(classSchedule);
                 await _context.SaveChangesAsync();
 
+                //creates a list of equipments for the class
                 foreach (int equipmentId in EquipmentList)
                 {
                     var equipmentListEntry = new EquipmentListEntry

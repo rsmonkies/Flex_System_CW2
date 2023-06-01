@@ -36,7 +36,7 @@
             @Html.DisplayFor(model => model.Status)
         </dd>
     </dl>
-    
+    <!--If the user where to click on the delete button it acitvates the function in the bookingController that will delete this bookign from the database-->
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

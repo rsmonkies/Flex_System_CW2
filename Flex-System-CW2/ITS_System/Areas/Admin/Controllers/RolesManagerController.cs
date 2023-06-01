@@ -24,6 +24,7 @@ namespace ITS_System.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRole(string roleName)
         {
+            //Thiss will create a role once the suer gives it a name and click create 
             if (roleName != null)
             {
                 await _roleManager.CreateAsync(new IdentityRole(roleName));

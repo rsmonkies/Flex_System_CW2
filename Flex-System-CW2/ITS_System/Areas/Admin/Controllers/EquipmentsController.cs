@@ -60,6 +60,7 @@ namespace ITS_System.Areas.Admin.Views
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description")] Equipment equipment)
         {
+            //The user can create data for a piece of equipment so it can be used for class scheduling
             if (ModelState.IsValid)
             {
                 _context.Add(equipment);

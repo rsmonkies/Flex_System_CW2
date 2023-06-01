@@ -19,6 +19,7 @@
     {
         <div class="card mb-4 col-4 mx-auto">
             <div class="card-body">
+                <!--Grabs the item from the model which is booking then calling it by its name in the model for viewing-->
                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.TimeStamp)</h5>
                 <p class="card-text">
                     <strong>Name:</strong> @Html.DisplayFor(modelItem => item.Attendee.Email) <br />
@@ -28,6 +29,7 @@
                 </p>
                 <div class="d-flex justify-content-between">
                 <td>
+                <!--Takes the user to the Delete page where they can delete their bookings if they wish to-->
                 <a asp-action="Delete" asp-route-id="@item.Id" class="w-100 btn-danger btn">Delete</a>
             </td>
                 </div>

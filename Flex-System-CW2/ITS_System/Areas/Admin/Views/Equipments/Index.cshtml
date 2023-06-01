@@ -31,6 +31,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
+                <!--Allows for the user to go to the appropriate page by each button-->
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id"class="btn btn-info">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id"class="btn btn-danger">Delete</a>

@@ -27,6 +27,7 @@ namespace ITS_System.Areas.Admin.Controllers
 
             foreach (var user in users)
             {
+                //Creates a list of roles for the user as one user can have multiple roles.
                 var vm = new UserRolesViewModel()
                 {
                     User = user,
@@ -54,6 +55,7 @@ namespace ITS_System.Areas.Admin.Controllers
 
         public async Task<IActionResult> Manage(string id)
         {
+            //Allows for managing users roles 
             var user = await _userManager.FindByIdAsync(id);
 
             if (user != null)

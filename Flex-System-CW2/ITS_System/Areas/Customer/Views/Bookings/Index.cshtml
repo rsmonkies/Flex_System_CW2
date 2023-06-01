@@ -8,6 +8,7 @@
 
 
     <div class="col-md-12">
+        <!--This is the search bar that implelements the function in the bookingscontroller that allows for searching classes by name-->
         <form asp-action="Index" method="get">
             <div class="input-group mb-3">
                 <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="search">
@@ -23,6 +24,7 @@
     {
         <div class="card mb-4">
             <div class="card-body">
+                <!--Grabs the inforamtion from ClassSchedules to output any data that is saved to the database so users can see class schedules that have been mades-->
                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.DateTime)</h5>
                 <p class="card-text">
                     <strong>Name:</strong> @Html.DisplayFor(modelItem => item.ClassName) <br />
@@ -32,6 +34,7 @@
                     <strong>Status:</strong> @Html.DisplayFor(modelItem => item.Status)
                 </p>
                 <div class="d-flex justify-content-between">
+                    <!--Thi button activates the booking function which will enroll the user onto this class and save this as a booking in the database-->
                     <a class="btn btn-primary w-100" asp-action="Booking" asp-route-id="@item.Id">Book</a>
                 </div>
             </div>

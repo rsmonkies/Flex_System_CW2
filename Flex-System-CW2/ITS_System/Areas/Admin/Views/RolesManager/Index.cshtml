@@ -12,7 +12,7 @@
         {
             <div class="alert alert-danger mx-2">@ViewBag.Message</div>
         }
-
+    <!--This allwos the user to create a role with this form-->
     <form method="post" asp-action="AddRole" asp-controller="RolesManager">
         <div class="input-group">
             <input name="roleName" class="form-control w-25" />
@@ -30,12 +30,14 @@
             </tr>
         </thead>
         <tbody>
+            <!--Shows each role that is saved to the database-->
             @foreach (var role in Model)
             {
                 <tr>
                     <td>@role.Id</td>
                     <td>@role.Name</td>
                     <td>
+                        <!--Calls the deleterole fucntion in the Rolesmanagercontroller for deletion of a role-->
                         <a class="btn btn-danger" asp-action="DeleteRole" asp-route-id="@role.Id">Delete</a>
                     </td>
                 </tr>

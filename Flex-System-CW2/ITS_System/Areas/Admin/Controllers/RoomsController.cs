@@ -25,6 +25,7 @@ namespace ITS_System.Areas.Admin.Views
         // GET: Admin/Rooms
         public async Task<IActionResult> Index()
         {
+            //Takes the user to the index page
               return _context.Rooms != null ? 
                           View(await _context.Rooms.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Rooms'  is null.");
